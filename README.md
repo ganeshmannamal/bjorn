@@ -4,6 +4,15 @@
 
 **bjorn allow the users (like Bjorn) to compare images that are provided as a list in a csv file**
 
+# Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Development](#development)
+    * [Project Structure](#project-structure)
+    * [Image Comparison Algorithm](#image-comparison-algorithm)
+    * [Further Development](#further-development)
+    * [Running Tests](#tests)
+    
 ## Installation
 ### [LATEST RELEASE](https://github.com/ganeshmannamal/bjorn/releases/latest)
 Download the appropriate release package as per you operating system. Supported operating systems are:
