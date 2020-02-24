@@ -50,13 +50,21 @@ bjorn diff [flags]
 
 ## Development
 
-### Image Comparison
+### Project structure
+We are using Cobra (a library for creating CLI applications using Go) to build this project. This allows to quickly prototype the solution as a user friendly CLI application and makes future extension with more commands easier.
+
+For release management we are using GoReleaser along with TravisCI when a new tag is pushed. It generates binaries for each of the supported operating systems (MacOs, Windows, Linux).
+
+### Image Comparison Algorithm
 Bjorn uses a simple pixel based approach to image comparison. Each pixel of the 2 images being compared using the RGB values of each pixel.
+This is a relatively simple approach to image comparison, suitable for basic percentage difference comparison.
+
 The Score is calculated by [summing up the difference in RGB values for each pixel](https://github.com/ganeshmannamal/bjorn/blob/master/pkg/pair/pair.go#L48) and using this value to get the ratio of different pixels to total pixels in the images.
+To calculate the time taken for each comparison we called a deferred function [elapsed()](https://github.com/ganeshmannamal/bjorn/blob/master/pkg/pair/pair.go#L76) at start of each `Compare()` call.
  
 Limitations of current approach:
  * It assumes the images are of the same size. Scaled versions of the same image will be considered different.
- * Comparing same images in different formats (png, jpg, gif) can produce a score of ~0.01-0.02. The comparison algorithm uses a threshold of 0.01, below which images are considered similar
+ * Comparing same images in different formats (png, jpg, gif) can produce a score of ~0.01 to 0.02. The comparison algorithm uses a threshold of 0.01, below which images are considered similar.
  
 ### Further Development
 The comparison algorithm is defined as the `Compare()` function in the [pair](https://github.com/ganeshmannamal/bjorn/blob/master/pkg/pair/pair.go) package. This function may be extended to improve the comparison algorithm.
@@ -64,4 +72,7 @@ Possible improvements include:
  * Improve comparison algorithm to consider scaled images.
  * Add ability to define multiple comparison algorithm and flags to select each.
  * Add command to compare 2 images separately (eg `bjorn diff images img1 img2`).
+ 
+### Tests
+Run tests using `go test ./..`
 
