@@ -7,8 +7,7 @@ before:
     # You may remove this if you don't use go modules.
     - go mod download
 builds:
-  -
-    main: ./cmd/bjorn/main.go
+  - main: ./cmd/bjorn/main.go
     env:
       - CGO_ENABLED=0
     goos:
@@ -32,5 +31,5 @@ changelog:
   sort: asc
   filters:
     exclude:
-    - '^docs:'
-    - '^test:'
+      - '^docs:'
+      - '^test:'
