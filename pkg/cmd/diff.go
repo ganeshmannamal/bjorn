@@ -42,7 +42,6 @@ func NewDiffCommand() *cobra.Command {
 }
 
 func (opts *Opts) Run() error {
-
 	csvRootPath, err := filepath.Abs(filepath.Dir(opts.csvFile))
 	if err != nil {
 		return err
@@ -67,7 +66,7 @@ func (opts *Opts) Run() error {
 	if err != nil {
 		return err
 	}
-	defer f.Close()
+	defer out.Close()
 
 	writer := csv.NewWriter(out)
 	defer writer.Flush()
