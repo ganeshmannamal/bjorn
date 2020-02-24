@@ -9,6 +9,9 @@ import (
 	"time"
 )
 
+// Pair is a construct of 2 images to be compared, along with Score and time taken for comparison
+// Score is a value between 0 to 1 indicating similarity of images.
+// 0 indicates the images are identical, 1 indicates images are of different sizes
 type Pair struct {
 	Image1 image.Image
 	Image2 image.Image
@@ -36,6 +39,10 @@ func NewImagePair(image1Path, image2Path string) (*Pair, error) {
 	return p, nil
 }
 
+// Compare uses simple pixel based comparison to determine similarity between images.
+// If the images are of different sizes, they are considered different with a Score of 1.
+// Red, Green and Blue values of each pixel is compared to calculate the difference in pixel.
+// Ratio of the sum of all pixel differences and Total no of pixels is user to determine the Score
 func (p *Pair) Compare() {
 	defer p.elapsed()() // deferred call to get execution time of Compare func
 	if p.Image1.Bounds() != p.Image2.Bounds() {
@@ -64,6 +71,8 @@ func (p *Pair) Compare() {
 	}
 }
 
+// Elapsed helps calculate the time taken for each comparison
+// A deferred call at the start of Compare() helps calculate the time taken
 func (p *Pair) elapsed() func() {
 	start := time.Now()
 	return func() {

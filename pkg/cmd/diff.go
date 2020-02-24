@@ -16,6 +16,10 @@ type Opts struct {
 	outFile string
 }
 
+// NewDiffCommand generates a cobra command for executing the diff command.
+// This command accepts the flags --file (-f path to csv file) and
+// --out (-o path for output file). --out is optional, if not provided,
+// out put file is created in same directory as input csv
 func NewDiffCommand() *cobra.Command {
 	opts := &Opts{}
 	diffCmd := &cobra.Command{
@@ -41,6 +45,9 @@ func NewDiffCommand() *cobra.Command {
 	return diffCmd
 }
 
+// Run reads the csv file and parses each line for image pairs for comparison.
+// After comparison it writes the to output csv, with each line containing -
+// "image1,image2,score,time taken
 func (opts *Opts) Run() error {
 	csvRootPath, err := filepath.Abs(filepath.Dir(opts.csvFile))
 	if err != nil {

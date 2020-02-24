@@ -16,13 +16,17 @@ var cfgFile string
 
 var rootCmd = &cobra.Command{
 	Use:   "bjorn",
-	Short: "image comparison tool for Bjorn",
+	Short: "Image comparison tool for Bjorn",
 	Long: `bjorn allow the users (like Bjorn) to compare images that are
 		provided as a list in a csv file`,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		// For cobra + glog flags. Available to all subcommands.
 		goflag.Parse()
 	},
+}
+
+func NewRootCmd() *cobra.Command {
+	return rootCmd
 }
 
 func init() {
